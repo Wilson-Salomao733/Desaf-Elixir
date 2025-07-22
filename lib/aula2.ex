@@ -1,14 +1,21 @@
-defmodule Aula1 do
+defmodule Aula2 do
 
-  def exercicio1 do
-    1..1000
+  @spec exercicio1(any()) :: integer()
+  def exercicio1(n) do
+    if is_integer(n) do
+    1..n
     |> Enum.filter(fn x -> rem(x, 3) == 0 or rem(x, 5) == 0 end)
     |> Enum.sum()
+    else
+      "valor invalido"
+    end
   end
 
-  def exercicio2 do
+  @spec exercicio2(any()) :: integer()
+  def exercicio2 (n) do
+    if is_integer(n) do
     Stream.unfold({1, 2}, fn {a, b} ->
-      if a > 4_000_000 do
+      if a > n do
         nil
       else
         {a, {b, a + b}}
@@ -16,10 +23,14 @@ defmodule Aula1 do
     end)
     |> Enum.filter(fn x -> rem(x, 2) == 0 end)
     |> Enum.sum()
+    else
+      IO.puts("valor invalido")
+    end
   end
 
-  def exercicio3 do
-    fator_primo(600_851_475_143)
+  @spec exercicio3(any()) :: integer()
+  def exercicio3 (n) do
+    fator_primo(n)
   end
 
   defp fator_primo(n, divisor \\ 2) do
@@ -30,8 +41,11 @@ defmodule Aula1 do
     end
   end
 
-  def exercicio4 do
-    (for a <- 100..999, b <- 100..999, do: a * b)
+  @spec exercicio4(integer(), integer()) :: integer()
+  def exercicio4(a, b) do
+    (for a <- a, b <- b, do: a * b)
+    ## Aqui tem que ter passado uma lista Ex:Aula2.exercicio4(100..999, 100..999)
+    |> IO.inspect()
     |> Enum.filter(&palindromo?/1)
     |> Enum.max()
   end
